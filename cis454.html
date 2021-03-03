@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Let's Do It</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com"> 
+        <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&family=Space+Mono&display=swap" rel="stylesheet">
+        <style>
+        body {
+            margin: 0px;
+            }
+        #header {
+            background: rgb(28, 65, 114);
+            color: white;
+            font-family: 'Libre Barcode 39 Text', cursive;
+            text-align: center;
+            font-size: 50px;
+            padding: 16px;
+        }
+        #header > #name {
+            font-family: 'Libre Barcode 39 Text', cursive;
+            display: inline-block;
+        }
+        .clear {
+            clear: both;
+        }
+        #container {
+            margin: 20px 250px 20px 250px;
+        }
+        #area {
+            width: 100%;
+            height: 100%;
+            font: 1em 'Space Mono', monospace;
+            color: black;
+        }
+        #area:focus {
+            color:black;
+            border: 2px solid black;
+        }
+        .footer {
+            width: 100%;
+            background-color: rgb(28, 65, 114);
+            height: 32px;
+            position: fixed;
+            bottom: 0px;
+        }
+        .footer > p {
+            margin: 8px;
+            color: white;
+            font-family: 'Space Mono', monospace;
+            text-align: center;
+        }
+        #controls {
+            margin-left: 10px;
+        }
+        a.button {
+            width: 15%;
+            display: inline-block;
+            border-radius: 8px;
+            border: 1px solid #444444;
+            color: black;
+            text-decoration: none;
+            text-align: center;
+            padding: 16px 32px 16px 32px;
+            font-family: 'Space Mono', monospace;
+        }
+        a.button:hover {
+            background: rgb(28, 65, 114);
+            color: white;
+        }
+        a.button:active {
+            background: rgb(28, 65, 114);
+        }
+        </style>
+        <script>
+        function check_web_storage_support() {
+            if(typeof(Storage) !== "undefined") {
+                return(true);
+            }
+            else {
+                alert("Web storage unsupported!");
+                return(false);
+            }
+            }
+        function display_saved_note() {
+            if(check_web_storage_support() == true) {
+                result = localStorage.getItem('note');
+            }
+            if(result === null) {
+                result = "No note saved";
+            }
+            document.getElementById('area').value = result;
+        }
+        function save() {
+            if(check_web_storage_support() == true) {
+                var area = document.getElementById("area");
+                if(area.value != '') {
+                    localStorage.setItem("note", area.value);
+                }
+                else {
+                    alert("Nothing to save");
+                }
+            }
+        }
+        function clear() {
+            document.getElementById('area').value = "";
+        }
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="name">Let's Do It</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div id="upload" style="text-align:center; font-family: 'Space Mono', monospace;">
+            <p>Click on the "Choose File" button to upload a pdf or docx version of your syllabus:</p>
+            <form action="/action_page.php">
+                <input type="file" id="myFile" name="filename" style="font-family: 'Space Mono', monospace;">
+                <input type="submit">
+            </form>
+        </div>
+        <div id="container">
+            <textarea id="area" rows="10" cols="50"></textarea>
+        </div>
+        <div id="controls" style="text-align:center;">
+            <p><a href="javascript:save();" class="button">Save</a>
+                <a href="javascript:clear();" class="button">Clear</a></p>
+        </div>
+        <div id="calander" style="text-align:center;" padding="100px">
+            <iframe src="https://calendar.google.com/calendar/embed?src=stacykim36%40gmail.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        </div>
+        <div class="footer">
+            <p>By Team 24 of CIS 454 Copyright 2021</p>
+        </div>
+    </body>
+</html>
